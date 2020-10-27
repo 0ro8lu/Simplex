@@ -1,0 +1,18 @@
+<Actor type="Test" resource="Actors\TestActor.xml">
+    <TestComponent>
+        <TestVariable x="100"/>
+    </TestComponent>
+
+    <TransformComponent>
+        <Position x="350" y="200"/>
+    </TransformComponent>
+
+    <SpriteRenderComponent>
+        <Texture name="container.jpg"/>
+        <Dimentions width="200" height="200"/>
+    </SpriteRenderComponent>
+
+    <PhysicsComponent>
+    </PhysicsComponent>
+
+</Actor>

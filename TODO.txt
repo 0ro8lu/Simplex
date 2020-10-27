@@ -1,0 +1,13 @@
+- Implement GLM.
+- Implement Camera.
+- IJoystickHandler.
+- IGamepadHandler.
+
+MAYBE LATER:
+- Try Delay Process.
+
+DONE THINGS:
+- Screen Elements.
+- Game View.
+- Implement IGameLogic.
+- Actor/Component System.
