@@ -119,7 +119,7 @@ Window::~Window()
     glfwTerminate();
 }
 
-void Window::update()
+void Window::processInput()
 {
     glfwSwapBuffers(m_pWindow);
     glfwPollEvents();

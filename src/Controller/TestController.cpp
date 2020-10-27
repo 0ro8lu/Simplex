@@ -19,7 +19,7 @@ bool TestController::VOnKeyDown(short key)
         std::cout << "Thrust started...\n";
 
         unsigned int actorID = m_Object->VGet()->ActorID();
-        std::unique_ptr<StartThrustEvent> pEvent = std::make_unique<StartThrustEvent>(actorID, (key == GLFW_KEY_W ? 0.04f : (-0.04f)));
+        std::unique_ptr<StartThrustEvent> pEvent = std::make_unique<StartThrustEvent>(actorID, (key == GLFW_KEY_W ? 0.03f : (-0.03f)));
         EventManager::Get()->triggerEvent(pEvent.get());
     }
 
@@ -28,7 +28,7 @@ bool TestController::VOnKeyDown(short key)
         std::cout << "Steering started...\n";
 
         unsigned int actorID = m_Object->VGet()->ActorID();
-        std::unique_ptr<StartSteerEvent> pEvent = std::make_unique<StartSteerEvent>(actorID, (key == GLFW_KEY_D ? 0.04f : (-0.04f)));
+        std::unique_ptr<StartSteerEvent> pEvent = std::make_unique<StartSteerEvent>(actorID, (key == GLFW_KEY_D ? 0.03f : (-0.03f)));
         EventManager::Get()->triggerEvent(pEvent.get());
     }
 

@@ -12,7 +12,7 @@ Texture2D::~Texture2D()
 
 }
 
-void Texture2D::Generate(unsigned int width, unsigned int height, unsigned char *data)
+void Texture2D::Generate(int width, int height, unsigned char *data)
 {
     this->Width  = width;
     this->Height = height;

@@ -84,12 +84,25 @@ void IApplication::onRender()
 
 void IApplication::update()
 {
+    double previous = Timer::getCurrentTime();
+    double lag = 0.0;
+
     while (!m_ShouldClose)
     {
-        m_pWindow->update();
-        m_pGameLogic->VOnUpdate();
+
+        double current = Timer::getCurrentTime();
+        double elapsed = current - previous;
+        previous = current;
+        lag += elapsed;
+
+        m_pWindow->processInput();
+
+        while(lag >= MS_PER_UPDATE)
+        {
+            m_pGameLogic->VOnUpdate();
+            lag -= MS_PER_UPDATE;
+        }
         onRender();
-        ///TODO: Add game loop.
     }
 }
 

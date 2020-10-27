@@ -6,6 +6,7 @@
 #include "AppCloseEvent.h"
 #include "BaseGameLogic.h"
 #include "Rendering/SpriteRenderer.h"
+#include "Utilities/Timer.h"
 
 class IApplication
 {
@@ -27,6 +28,8 @@ public:
 
 protected:
     virtual BaseGameLogic* VCreateGameAndView() = 0;
+
+    const double MS_PER_UPDATE = 16.67f;
 
 private:
 

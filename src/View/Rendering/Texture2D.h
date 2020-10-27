@@ -31,7 +31,7 @@ public:
     unsigned int Filter_Max;
 
 private:
-    void Generate(unsigned int width, unsigned int height, unsigned char* data);
+    void Generate(int width, int height, unsigned char* data);
 };
 
 #endif //ZOMBIEGAME_TEXTURE2D_H

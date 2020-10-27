@@ -10,7 +10,7 @@ SpriteNode::SpriteNode(unsigned int ActorID, RenderComponent *renderComponent, s
     m_pSpriteRenderer = IApplication::GetRenderer();
 
     m_pTexture = new Texture2D;
-    m_pTexture->LoadFromFile(spriteName.c_str(), false);
+    m_pTexture->LoadFromFile(("../Assets/Textures/" + spriteName).c_str(), false);
 
     m_Props.GetTransform() = glm::scale(m_Props.GetTransform(), glm::vec3(size, 1.0f));
 

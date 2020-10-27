@@ -17,7 +17,7 @@ public:
     Window(int width, int height, const char* title);
     ~Window();
 
-    void update();
+    void processInput();
 
 private:
 
