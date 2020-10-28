@@ -91,7 +91,6 @@ void ProcessManager::AbortAllProcesses(bool immediate)
             }
         }
     }
-
 }
 
 void ProcessManager::ClearAllProcesses()

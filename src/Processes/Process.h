@@ -27,7 +27,7 @@ public:
     Process();
     virtual ~Process();
 
-    inline void Suceed() { m_State = SUCCEEDED; }
+    inline void Succeed() { m_State = SUCCEEDED; }
     inline void Fail()   { m_State = FAILED; }
     void        Pause();
     void        UnPause();

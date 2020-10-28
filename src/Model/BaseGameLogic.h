@@ -8,6 +8,9 @@
 #include "Actors/ActorFactory.h"
 #include "View/HumanView.h"
 
+#include "Processes/ProcessType/DelayProcess.h"
+#include "Processes/ProcessType/PrintProcess.h"
+
 typedef std::map<unsigned int, std::shared_ptr<Actor>> ActorMap;
 
 class BaseGameLogic : public IGameLogic

@@ -3,7 +3,14 @@
 
 BaseGameLogic::BaseGameLogic()
 {
+    m_ProcessManager = nullptr;
+    m_pActorFactory  = nullptr;
+
+    //pDelayProcess->AttachChild(pPrintProcess);
+
     Init();
+
+    m_GameState = BGS_Running;
 }
 
 BaseGameLogic::~BaseGameLogic()
@@ -64,6 +71,13 @@ bool BaseGameLogic::Init()
 {
     m_ProcessManager = new ProcessManager;
     m_pActorFactory = VCreateActorFactory();
+
+    ///TODO: Don't really like the fact that we are using shared_ptrs, reformat code!
+    StrongProcessPtr pDelayProcess = std::make_shared<DelayProcess>(3000);
+    StrongProcessPtr pPrintProcess = std::make_shared<PrintProcess>("Done!");
+    pDelayProcess->AttachChild(pPrintProcess);
+
+    m_ProcessManager->AttachProcess(pDelayProcess);
 
     m_GameState = BGS_Initializing;
 
