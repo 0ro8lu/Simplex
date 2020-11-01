@@ -10,13 +10,15 @@
 #include "RootNode.h"
 #include "CameraNode.h"
 
+#include "Rendering/SpriteRenderer.h"
+
 class Scene
 {
 public:
 
-    Scene();
+    ///TODO: Add Interface class to renderer. Don't just pass SpriteRenderer.
+    Scene(SpriteRenderer &renderer);
 
-    ///TODO: Add renderer to constructor.
     virtual ~Scene();
 
     void OnRender();
@@ -33,6 +35,7 @@ public:
 
     void SetCamera(CameraNode* pCamera) { m_pCamera = pCamera; }
     CameraNode* GetCamera() const { return m_pCamera; }
+    SpriteRenderer* GetRenderer() const { return m_pRenderer; }
 
     ///TODO: Implement all the rest.
 
@@ -44,6 +47,7 @@ protected:
 
     std::unique_ptr<SceneNode> m_pRoot;
     CameraNode* m_pCamera;
+    SpriteRenderer* m_pRenderer;
 };
 
 #endif //ZOMBIEGAME_SCENE_H

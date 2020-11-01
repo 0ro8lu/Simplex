@@ -19,9 +19,12 @@ public:
 
     void processInput();
 
+    static int getWidth()  { return m_Width; }
+    static int getHeight() { return m_Height; }
+
 private:
 
-    int m_Width, m_Height;
+    static int m_Width, m_Height;
     const char* m_Title;
 
     GLFWwindow* m_pWindow;

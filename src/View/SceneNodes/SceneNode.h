@@ -31,7 +31,7 @@ public:
     bool VPostRender(Scene* pScene) override;
     void VRenderChildren(Scene* pScene) override;
 
-    const SceneNodeProperties* const VGet() const override { return &m_Props; }
+    SceneNodeProperties* VGet() override { return &m_Props; }
 
 protected:
     std::vector<ISceneNode*> m_Children;

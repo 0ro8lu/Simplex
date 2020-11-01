@@ -22,30 +22,29 @@ public:
     void onRender();
 
     BaseGameLogic* GetGameLogic() const { return m_pGameLogic; }
-    static SpriteRenderer*& GetRenderer() { return m_pRenderer; }
 
-    static IApplication* pApplication;
+    SpriteRenderer* m_pRenderer;
 
 protected:
     virtual BaseGameLogic* VCreateGameAndView() = 0;
 
+    ///TODO: Maybe declare this inside the GameApplication, if someone wanted to have a different value it would not have to dig into Engine Code.
     const double MS_PER_UPDATE = 16.67f;
+
+    Window*         m_pWindow;
+    EventManager*   m_pEventManager;
+    BaseGameLogic*  m_pGameLogic;
+
+    bool m_ShouldClose;
 
 private:
 
     void update();
     virtual void initInstance();
     void closeDelegate(const EventPointer& event);
-
-    bool m_ShouldClose;
-
-    Window*         m_pWindow;
-    EventManager*   m_pEventManager;
-    BaseGameLogic*  m_pGameLogic;
-
-    static SpriteRenderer* m_pRenderer;
 };
 
+extern IApplication* g_pApp;
 extern IApplication* CreateApplication();
 
 #endif //ZOMBIEGAME_IAPPLICATION_H

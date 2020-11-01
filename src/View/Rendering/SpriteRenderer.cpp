@@ -1,5 +1,7 @@
 #include "SpriteRenderer.h"
 
+#include "Utilities/PrintMatrix.h"
+
 SpriteRenderer::SpriteRenderer()
 {
     m_VAO = 0;
@@ -31,6 +33,17 @@ void SpriteRenderer::initRenderData()
             1.0f, 0.0f, 1.0f, 0.0f
     };
 
+    /*float vertices[] = {
+            // pos      // tex
+            0.0f, 0.5f, 0.0f, 1.0f,
+            0.5f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 0.0f, 0.0f,
+
+            0.0f, 0.5f, 0.0f, 1.0f,
+            0.5f, 0.5f, 1.0f, 1.0f,
+            0.5f, 0.0f, 1.0f, 0.0f
+    };*/
+
     glGenVertexArrays(1, &this->m_VAO);
     glGenBuffers(1, &VBO);
 
@@ -39,15 +52,23 @@ void SpriteRenderer::initRenderData()
 
     glBindVertexArray(this->m_VAO);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *) nullptr);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) nullptr);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+}
 
+void SpriteRenderer::SetProjectionMatrix(const glm::mat4& projectionMatrix)
+{
     m_pShader->Use();
+    m_pShader->SetMatrix4("projection", projectionMatrix);
+}
 
-    glm::mat4 projection;
-    projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
-    m_pShader->SetMatrix4("projection", projection);
+void SpriteRenderer::SetViewMatrix(glm::mat4& viewMatrix)
+{
+    ///TODO: Do it the correct way: don't use a secondary m_View matrix, just pass it to the shaders.
+    m_View = viewMatrix;
+    //m_pShader->Use();
+    //m_pShader->SetMatrix4("view ", viewMatrix, true);
 }
 
 /*
@@ -83,26 +104,11 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, const glm::vec2 &posit
 }
 */
 
-void printMat(glm::mat4& model)
+void SpriteRenderer::DrawSprite(const Texture2D& texture, const glm::mat4& model)
 {
-    for(int i = 0; i <= 3; i++)
-    {
-        std::cout << "X: " << model[i][0] << " Y: " << model[i][1] << "\n";
-    }
-}
-
-void SpriteRenderer::DrawSprite(const Texture2D &texture, const glm::mat4 &model)
-{
-
     m_pShader->SetMatrix4("model", model);
 
-    ///TODO: Move this outta here.
-    glm::mat4 view = glm::mat4(1.0f);
-    view = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f),
-                       glm::vec3(0.0f, 0.0f, 0.0f),
-                       glm::vec3(0.0f, 1.0f, 0.0f));
-
-    m_pShader->SetMatrix4("view", view);
+    m_pShader->SetMatrix4("view", m_View);
 
     glActiveTexture(GL_TEXTURE0);
     texture.Bind();

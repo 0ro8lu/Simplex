@@ -2,6 +2,7 @@
 #define ZOMBIEGAME_GAMEAPPLICATION_H
 
 #include "Model/IApplication.h"
+#include "SandBox/TestGameView.h"
 
 class GameApplication : public IApplication
 {
@@ -10,6 +11,9 @@ public:
     ~GameApplication();
 
 private:
+
+    TestGameView* m_pGameView;
+
 protected:
     BaseGameLogic *VCreateGameAndView() override;
 };

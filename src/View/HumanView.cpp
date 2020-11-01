@@ -1,17 +1,20 @@
 #include "HumanView.h"
+#include "Window.h"
 
-HumanView::HumanView()
+HumanView::HumanView(SpriteRenderer &renderer)
 {
     m_ProcessManager = new ProcessManager;
 
     m_ViewID = 0;
     m_ActorID = 0;
 
-    m_pScene  = new ScreenElementScene;
-    //m_pCamera = new CameraNode(800, 600);
+    m_pScene  = new ScreenElementScene(renderer);
 
-    //m_pScene->VAddChild(0, m_pCamera);
-    //m_pScene->SetCamera(m_pCamera);
+    m_pCamera = new CameraNode((float)Window::getWidth(), (float)Window::getHeight(), 0.1f, 100.0f);
+    m_pCamera->SetProjectionMatrix(m_pScene);
+
+    m_pScene->VAddChild(0, m_pCamera);
+    m_pScene->SetCamera(m_pCamera);
 
     RegisterAllDelegates();
 

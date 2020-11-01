@@ -24,10 +24,8 @@ private:
 
 public:
 
-    HumanView();
+    HumanView(SpriteRenderer &renderer);
     virtual ~HumanView();
-
-    ///TODO: HumanView(shared_ptr<IRenderer> renderer); DONT PASS A SHARED PTR.
 
     bool LoadGame(tinyxml2::XMLElement* pLevelData);
 

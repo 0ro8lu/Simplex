@@ -19,6 +19,9 @@ class SceneNodeProperties
     friend class SceneNode;
 
 public:
+
+    ///TODO: Add view matrix.
+
     SceneNodeProperties()
     {
         m_pTransform = nullptr;

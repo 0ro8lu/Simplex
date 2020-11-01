@@ -14,7 +14,7 @@ Shader::Shader()
                      "void main()\n"
                      "{\n"
                      "   TexCoords = vertex.zw;\n"
-                     "   gl_Position = projection * view * model * vec4(vertex.x, vertex.y, 1.0, 1.0);\n"
+                     "   gl_Position = projection * view * model * vec4(vertex.xyz, 1.0);\n"
                      "}\0";
 
     m_fragmentSource = "#version 330 core\n"

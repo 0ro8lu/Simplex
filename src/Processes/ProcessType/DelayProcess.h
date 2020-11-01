@@ -22,6 +22,7 @@ protected:
     void VOnSuccess() override
     {
         Process::VOnSuccess();
+        m_timeDelayedSoFar = 0;
     }
 
 private:

@@ -9,7 +9,7 @@ class ScreenElementScene : public IScreenElement, public Scene
 public:
 
     ///TODO: Add renderer to parameter.
-    ScreenElementScene() = default;
+    explicit ScreenElementScene(SpriteRenderer &renderer) : Scene(renderer) { };
     virtual ~ScreenElementScene() { }
 
     // IScreenElement Implementation.

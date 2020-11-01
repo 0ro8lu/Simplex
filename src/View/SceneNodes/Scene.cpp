@@ -1,8 +1,9 @@
 #include "Scene.h"
 
-Scene::Scene()
+Scene::Scene(SpriteRenderer &renderer)
 {
     m_pRoot = std::make_unique<RootNode>();
+    m_pRenderer = &renderer;
 
     ///TODO: Add all event delegates.
     EventManager* pEventMgr = EventManager::Get();
@@ -26,7 +27,7 @@ void Scene::OnRender()
     if(m_pRoot)
     //if(m_pRoot && m_pCamera)
     {
-        //m_pCamera->SetViewTransform(this);
+        m_pCamera->SetViewMatrix(this);
 
         if(m_pRoot->VPreRender(this))
         {

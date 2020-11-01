@@ -4,6 +4,12 @@
 #include "View/IGameView.h"
 #include "Processes/ProcessManager.h"
 
+#include "EventManager.h"
+#include "StartThrustEvent.h"
+
+#include "Processes/ProcessType/DelayProcess.h"
+#include "Processes/ProcessType/PrintProcess.h"
+
 class AIView : public IGameView
 {
 public:
@@ -18,7 +24,7 @@ public:
     unsigned int VGetID() const override { return m_ViewID; }
     void VOnAttach(unsigned int viewID, unsigned int actorID) override { m_ViewID = viewID; m_PlayerActorID = actorID; }
     bool VOnMsgProc(const AppMsg &msg) override { return true; } ///TODO: Maybe return false? check source code of "TeapotWarsView.h" at line 169.
-    void VOnUpdate() override { }
+    void VOnUpdate() override;
 
 protected:
     unsigned int m_ViewID;

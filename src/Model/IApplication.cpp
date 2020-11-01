@@ -1,11 +1,10 @@
 #include "IApplication.h"
 
-IApplication*   IApplication::pApplication = nullptr;
-SpriteRenderer* IApplication::m_pRenderer = nullptr;
+IApplication* g_pApp = nullptr;
 
 IApplication::IApplication()
 {
-    pApplication = this;
+    g_pApp = this;
 
     m_ShouldClose = false;
 
@@ -55,13 +54,13 @@ void IApplication::messageProcess(const AppMsg &appMsg)
         ///TODO: make a table of keys so we are not forced to deal with numbers instead of keys.
         if (appMsg.key == GLFW_KEY_ESCAPE)
         {
-            pApplication->close();
+            g_pApp->close();
         }
     }
 
-    if(pApplication->m_pGameLogic)
+    if(g_pApp->m_pGameLogic)
     {
-        BaseGameLogic* pGame = pApplication->m_pGameLogic;
+        BaseGameLogic* pGame = g_pApp->m_pGameLogic;
 
         for(auto it = pGame->m_GameViews.rbegin(); it != pGame->m_GameViews.rend(); ++it)
         {
@@ -72,7 +71,7 @@ void IApplication::messageProcess(const AppMsg &appMsg)
 
 void IApplication::onRender()
 {
-    BaseGameLogic* pGame = pApplication->m_pGameLogic;
+    BaseGameLogic* pGame = m_pGameLogic;
 
     m_pRenderer->DrawBackGround();
 
@@ -110,8 +109,8 @@ void IApplication::initInstance()
 {
     m_pWindow = new Window(800, 600, "Test");
     m_pEventManager = new EventManager;
-    m_pGameLogic = VCreateGameAndView();
     m_pRenderer  = new SpriteRenderer;
+    m_pGameLogic = VCreateGameAndView();
 
     m_pEventManager->registerMemberDelegate(AppCloseEvent::StaticName(), this, &IApplication::closeDelegate);
 

@@ -15,6 +15,8 @@ public:
     void StartSteerDelegate(const EventPointer& pEvent);
     void EndSteerDelegate(const EventPointer& pEvent);
 
+    void testFunction2();
+
 private:
     void RegisterAllDelegates();
     void RemoveAllDelegates();

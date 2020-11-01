@@ -1,9 +1,14 @@
 #include "Window.h"
 #include "Model/IApplication.h"
 
+int Window::m_Width  = 0;
+int Window::m_Height = 0;
+
 Window::Window(int width, int height, const char *title)
-        : m_Width(width), m_Height(height), m_Title(title)
+        : m_Title(title)
 {
+    m_Width  = width;
+    m_Height = height;
 
     if (!glfwInit())
     {

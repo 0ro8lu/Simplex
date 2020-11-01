@@ -1,6 +1,6 @@
 #include "TestGameView.h"
 
-TestGameView::TestGameView()
+TestGameView::TestGameView(SpriteRenderer &renderer) : HumanView(renderer)
 {
     m_KeyboardHandler = nullptr;
     m_PointerHandler  = nullptr;
@@ -66,8 +66,7 @@ void TestGameView::VSetControlledActor(unsigned int actorID)
 
     m_KeyboardHandler = m_pTestController;
     m_PointerHandler  = m_pTestController;
-
-    //m_pCamera->SetTarget(m_pObject);
+    //m_pCamera->SetTarget(*m_pObject);
 }
 
 void TestGameView::SetControlledActorDelegate(EventPointer pEventData)

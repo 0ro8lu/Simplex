@@ -8,7 +8,7 @@ class Scene;
 class ISceneNode
 {
 public:
-    virtual const SceneNodeProperties* const VGet() const = 0;
+    virtual SceneNodeProperties* VGet() = 0;
 
     virtual ~ISceneNode() = default;
 

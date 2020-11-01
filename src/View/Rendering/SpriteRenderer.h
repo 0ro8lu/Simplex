@@ -16,6 +16,9 @@ public:
     void DrawSprite(const Texture2D& texture, const glm::mat4 &model);
     void DrawBackGround();
 
+    void SetProjectionMatrix(const glm::mat4& projectionMatrix);
+    void SetViewMatrix(glm::mat4 &viewMatrix);
+
 private:
 
     void initRenderData();
@@ -23,6 +26,7 @@ private:
     unsigned int m_VAO;
 
     Shader* m_pShader;
+    glm::mat4 m_View;
 };
 
 #endif //ZOMBIEGAME_SPRITERENDERER_H

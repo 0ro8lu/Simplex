@@ -8,8 +8,7 @@
 #include "Actors/ActorFactory.h"
 #include "View/HumanView.h"
 
-#include "Processes/ProcessType/DelayProcess.h"
-#include "Processes/ProcessType/PrintProcess.h"
+#include "AI/AIView.h"
 
 typedef std::map<unsigned int, std::shared_ptr<Actor>> ActorMap;
 
@@ -33,7 +32,7 @@ public:
 
     const BaseGameState GetState() const { return m_GameState; }
 
-    virtual void VAddView(IGameView* pView, unsigned int actorID);
+    virtual void VAddView(IGameView* pView, unsigned int actorID = 0);
 
     void testFunction();
 
@@ -41,7 +40,7 @@ protected:
 
     virtual ActorFactory* VCreateActorFactory();
 
-    ProcessManager* m_ProcessManager;
+    ProcessManager* m_pProcessManager;
     ActorFactory*   m_pActorFactory;
     ActorMap        m_Actors;
     unsigned int    m_LastActorID;

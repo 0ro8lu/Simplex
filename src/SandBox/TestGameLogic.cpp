@@ -1,6 +1,7 @@
 #include "TestGameLogic.h"
 
 #include "TestGameView.h"
+#include "Model/IApplication.h"
 
 TestGameLogic::TestGameLogic()
 {
@@ -111,4 +112,23 @@ void TestGameLogic::RemoveAllDelegates()
 
     pEventManager->unregisterMemberDelegate(StartSteerEvent::StaticName(), &TestGameLogic::StartSteerDelegate);
     pEventManager->unregisterMemberDelegate(EndSteerEvent::StaticName(), &TestGameLogic::EndSteerDelegate);
+}
+
+void BaseGameLogic::testFunction()
+{
+    auto aiv = new AIView;
+
+    std::shared_ptr<Actor> m_pActor1 = VCreateActor("../Assets/Actors/TestActor.xml");
+    std::shared_ptr<Actor> m_pActor2 = VCreateActor("../Assets/Actors/TestActor.xml");
+
+    for(auto& gameView : m_GameViews)
+    {
+        if(gameView->VGetType() == GV_Human)
+        {
+            auto pHumanView = static_cast<TestGameView*>(gameView);
+            pHumanView->VSetControlledActor(m_pActor1->GetID());
+        }
+    }
+
+    VAddView(aiv, m_pActor2->GetID());
 }

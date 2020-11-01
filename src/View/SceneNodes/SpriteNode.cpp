@@ -7,7 +7,7 @@ SpriteNode::SpriteNode(unsigned int ActorID, RenderComponent *renderComponent, s
         : SceneNode(ActorID, renderComponent, renderPass, transform)
 {
 
-    m_pSpriteRenderer = IApplication::GetRenderer();
+    m_pSpriteRenderer = g_pApp->m_pRenderer;
 
     m_pTexture = new Texture2D;
     m_pTexture->LoadFromFile(("../Assets/Textures/" + spriteName).c_str(), false);

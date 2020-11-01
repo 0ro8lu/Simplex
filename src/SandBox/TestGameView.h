@@ -7,7 +7,7 @@
 class TestGameView : public HumanView
 {
 public:
-    TestGameView();
+    TestGameView(SpriteRenderer &renderer);
     ~TestGameView();
 
     bool VOnMsgProc(const AppMsg& msg) override;
