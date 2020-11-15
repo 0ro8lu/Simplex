@@ -36,8 +36,6 @@ void TestGameView::VOnUpdate()
 void TestGameView::VOnAttach(unsigned int viewID, unsigned int actorID)
 {
     HumanView::VOnAttach(viewID, actorID);
-
-    VSetControlledActor(actorID);
 }
 
 void TestGameView::RegisterAllDelegates()
@@ -66,7 +64,7 @@ void TestGameView::VSetControlledActor(unsigned int actorID)
 
     m_KeyboardHandler = m_pTestController;
     m_PointerHandler  = m_pTestController;
-    //m_pCamera->SetTarget(*m_pObject);
+    m_pCamera->SetTarget(*m_pObject);
 }
 
 void TestGameView::SetControlledActorDelegate(EventPointer pEventData)

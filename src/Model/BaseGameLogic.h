@@ -7,6 +7,7 @@
 #include "Processes/ProcessManager.h"
 #include "Actors/ActorFactory.h"
 #include "View/HumanView.h"
+#include "Physics/IGamePhysics.h"
 
 #include "AI/AIView.h"
 
@@ -41,10 +42,14 @@ protected:
     virtual ActorFactory* VCreateActorFactory();
 
     ProcessManager* m_pProcessManager;
+    IGamePhysics*   m_pGamePhysics;
+
     ActorFactory*   m_pActorFactory;
     ActorMap        m_Actors;
     unsigned int    m_LastActorID;
+
     std::vector<IGameView*> m_GameViews;
+
     BaseGameState m_GameState;
 };
 

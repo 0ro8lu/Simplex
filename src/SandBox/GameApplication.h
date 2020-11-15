@@ -10,10 +10,6 @@ public:
     GameApplication();
     ~GameApplication();
 
-private:
-
-    TestGameView* m_pGameView;
-
 protected:
     BaseGameLogic *VCreateGameAndView() override;
 };

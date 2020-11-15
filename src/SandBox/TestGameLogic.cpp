@@ -7,19 +7,20 @@ TestGameLogic::TestGameLogic()
 {
     m_ThrustCount = m_SteerCount = 0;
 
+    //m_pGamePhysics = CreateDefaultGamePhysics();
+
     RegisterAllDelegates();
 }
 
 TestGameLogic::~TestGameLogic()
 {
-    //VDestroyActor(m_pActor->GetID());
     RemoveAllDelegates();
 }
 
 void TestGameLogic::StartThrustDelegate(const EventPointer& pEvent)
 {
     ///TODO: Revisit this whole MakeStrongPtr thing, i don't like it.
-    StartThrustEvent* pCastEvent = (StartThrustEvent*)pEvent;
+    auto* pCastEvent = (StartThrustEvent*)pEvent;
     StrongActorPtr pActor = MakeStrongPtr(VGetActor(pCastEvent->GetActorID()));
 
     if(pActor)
@@ -38,7 +39,7 @@ void TestGameLogic::EndThrustDelegate(EventPointer const &pEvent)
 
     if(m_ThrustCount != 2)
     {
-        EndThrustEvent *pCastEvent = (EndThrustEvent *) pEvent;
+        auto *pCastEvent = (EndThrustEvent *) pEvent;
         StrongActorPtr pActor = MakeStrongPtr(VGetActor(pCastEvent->GetActorID()));
 
         if (pActor)
@@ -56,7 +57,7 @@ void TestGameLogic::EndThrustDelegate(EventPointer const &pEvent)
 
 void TestGameLogic::StartSteerDelegate(EventPointer const &pEvent)
 {
-    StartSteerEvent* pCastEvent = (StartSteerEvent*)pEvent;
+    auto* pCastEvent = (StartSteerEvent*)pEvent;
     StrongActorPtr pActor = MakeStrongPtr(VGetActor(pCastEvent->GetActorID()));
 
     if(pActor)
@@ -75,7 +76,7 @@ void TestGameLogic::EndSteerDelegate(EventPointer const &pEvent)
 {
     if(m_SteerCount != 2)
     {
-        EndSteerEvent *pCastEvent = (EndSteerEvent *) pEvent;
+        auto *pCastEvent = (EndSteerEvent *) pEvent;
         StrongActorPtr pActor = MakeStrongPtr(VGetActor(pCastEvent->GetActorID()));
 
         if (pActor)

@@ -3,7 +3,8 @@
 BaseGameLogic::BaseGameLogic()
 {
     m_pProcessManager = nullptr;
-    m_pActorFactory  = nullptr;
+    m_pActorFactory   = nullptr;
+    m_pGamePhysics    = nullptr;
 
     m_GameState = BGS_Running;
 }
@@ -15,6 +16,7 @@ BaseGameLogic::~BaseGameLogic()
     {
         delete m_GameView;
     }
+
     m_GameViews.clear();
     m_GameViews.shrink_to_fit();
 
@@ -25,6 +27,11 @@ BaseGameLogic::~BaseGameLogic()
     }
     m_Actors.clear();
 
+    //delete m_pGamePhysics;
+    //m_pGamePhysics = nullptr;
+
+    if(!m_pGamePhysics)
+        std::cout << "Physics Destroyed!\n";
 
     delete m_pProcessManager;
     m_pProcessManager = nullptr;
@@ -80,6 +87,13 @@ void BaseGameLogic::VOnUpdate()
             break;
         case BGS_Running:
             m_pProcessManager->UpdateProcesses();
+
+            if(m_pGamePhysics)
+            {
+                m_pGamePhysics->VOnUpdate();
+                m_pGamePhysics->VSyncVisibleScene();
+            }
+
             break;
         default:
             break;

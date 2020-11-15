@@ -2,6 +2,7 @@
 #define ZOMBIEGAME_TESTGAMELOGIC_H
 
 #include "Model/BaseGameLogic.h"
+#include "Physics/DefaultPhysics.h"
 
 class TestGameLogic : public BaseGameLogic
 {
@@ -14,8 +15,6 @@ public:
     void EndThrustDelegate(const EventPointer& pEvent);
     void StartSteerDelegate(const EventPointer& pEvent);
     void EndSteerDelegate(const EventPointer& pEvent);
-
-    void testFunction2();
 
 private:
     void RegisterAllDelegates();

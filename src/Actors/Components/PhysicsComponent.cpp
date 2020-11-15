@@ -3,9 +3,20 @@
 #include "Actors/Actor.h"
 #include "TransformComponent.h"
 
+PhysicsComponent::PhysicsComponent()
+{
+    m_horizontalAcceleration = 0;
+    m_verticalAcceleration   = 0;
+}
+
+PhysicsComponent::~PhysicsComponent()
+{
+
+}
+
 bool PhysicsComponent::VInit(tinyxml2::XMLElement *pData)
 {
-    m_horizontalAcceleration = m_verticalAcceleration = 0;
+    ///TODO: Get GamePhysics from application.
 
     return true;
 }
@@ -30,6 +41,10 @@ tinyxml2::XMLElement *PhysicsComponent::VGenerateXml()
 
 void PhysicsComponent::VUpdate()
 {
+
+    ///TODO: Set the transform only before rendering and just update variables here.
+    ///TODO: Probably check if TransformComponent is a valid pointer, but kinda don't want to have an if condition every frame.
+
     m_pTranformComponent->GetTransform() = glm::translate(m_pTranformComponent->GetTransform(),
                                                           glm::vec3(m_horizontalAcceleration, m_verticalAcceleration, 0.0f));
 

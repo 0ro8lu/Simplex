@@ -44,9 +44,11 @@ void CameraNode::SetViewMatrix(Scene* pScene)
 {
     if(m_pTarget)
     {
-        printMat2(m_pTarget->VGet()->GetTransform());
         glm::vec2 objectPos = glm::vec2(m_pTarget->VGet()->GetTransform()[3]);
-        m_CameraPos = glm::vec3((objectPos.x) - (m_HalfWidth), (objectPos.y) - (m_HalfHeight), 3.0f);
+        ///TODO: Make this better, don't divide and do a bunch of things every time you need to render.
+        m_CameraPos = glm::vec3((objectPos.x) - (m_HalfWidth) + (m_pTarget->VGet()->GetTransform()[0][0]) / 2,
+                                (objectPos.y) - (m_HalfHeight) + (m_pTarget->VGet()->GetTransform()[1][1]) / 2,
+                                3.0f);
     }
     else
     {
