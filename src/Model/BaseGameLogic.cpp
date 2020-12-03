@@ -27,11 +27,8 @@ BaseGameLogic::~BaseGameLogic()
     }
     m_Actors.clear();
 
-    //delete m_pGamePhysics;
-    //m_pGamePhysics = nullptr;
-
-    if(!m_pGamePhysics)
-        std::cout << "Physics Destroyed!\n";
+    delete m_pGamePhysics;
+    m_pGamePhysics = nullptr;
 
     delete m_pProcessManager;
     m_pProcessManager = nullptr;
@@ -73,8 +70,6 @@ bool BaseGameLogic::Init()
 {
     m_pProcessManager = new ProcessManager;
     m_pActorFactory = VCreateActorFactory();
-
-    m_GameState = BGS_Initializing;
 
     return true;
 }

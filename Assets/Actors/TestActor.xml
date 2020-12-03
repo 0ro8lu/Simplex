@@ -4,7 +4,7 @@
     </TestComponent>
 
     <TransformComponent>
-        <Position x="0" y="0"/>
+        <Position x="400" y="300"/>
     </TransformComponent>
 
     <SpriteRenderComponent>
@@ -13,6 +13,7 @@
     </SpriteRenderComponent>
 
     <PhysicsComponent>
+        <Shape>Box</Shape>
     </PhysicsComponent>
 
 </Actor>

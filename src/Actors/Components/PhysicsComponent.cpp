@@ -2,11 +2,15 @@
 
 #include "Actors/Actor.h"
 #include "TransformComponent.h"
+#include "Model/IApplication.h"
 
 PhysicsComponent::PhysicsComponent()
 {
-    m_horizontalAcceleration = 0;
-    m_verticalAcceleration   = 0;
+    m_horizontalAcceleration = 0.0f;
+    m_verticalAcceleration = 0.0f;
+
+    m_pGamePhysics = nullptr;
+    m_pTransformComponent = nullptr;
 }
 
 PhysicsComponent::~PhysicsComponent()
@@ -14,42 +18,88 @@ PhysicsComponent::~PhysicsComponent()
 
 }
 
-bool PhysicsComponent::VInit(tinyxml2::XMLElement *pData)
+bool PhysicsComponent::VInit(tinyxml2::XMLElement* pData)
 {
-    ///TODO: Get GamePhysics from application.
+    m_pGamePhysics = g_pApp->GetGameLogic()->VGetGamePhysics();
+
+    if (!m_pGamePhysics)
+    {
+        std::cout << "PhysicsComponent ERROR: No valid IGamePhysics Pointer!\n";
+        return false;
+    }
+
+    tinyxml2::XMLElement* pAttributes = pData->FirstChildElement("Shape");
+
+    if(!pAttributes)
+    {
+        std::cout << "ERROR!: Could not find attribute Shape in PhysicsComponent\n";
+        return false;
+    }
+
+    m_pShape = pAttributes->GetText();
 
     return true;
 }
 
 void PhysicsComponent::VPostInit()
 {
-    m_pTranformComponent = m_pOwner->GetComponentRaw<TransformComponent>(TransformComponent::GetComponentName());
 
-    if(!m_pTranformComponent)
+    if (!m_pOwner)
     {
-        std::cout << "ERROR: No TranformComponent in actor number " << m_pOwner->GetID() << "\n";
+        std::cout << "PhysicsComponent ERROR: Invalid Owner \n";
         return;
     }
 
+    if (strcmp(m_pShape, "Box") == 0)
+    {
+        m_pGamePhysics->VAddBox(glm::vec2(1.0f, 1.0f), m_pOwner);
 
+    } else if (strcmp(m_pShape, "Circle") == 0)
+    {
+        ///TODO: Let physics system add a circle.
+    } else
+    {
+        std::cout << "ERROR!: Unsupported shape type " << m_pShape << " for PhysicsComponent in actor " << m_pOwner->GetID() << "\n";
+    }
+
+    m_pTransformComponent = m_pOwner->GetComponentRaw<TransformComponent>(TransformComponent::GetComponentName());
+
+    if (!m_pTransformComponent)
+    {
+        std::cout << "PhysicsComponent ERROR: No TranformComponent in actor number " << m_pOwner->GetID() << "\n";
+        return;
+    }
 }
 
-tinyxml2::XMLElement *PhysicsComponent::VGenerateXml()
+tinyxml2::XMLElement* PhysicsComponent::VGenerateXml()
 {
     return nullptr;
 }
 
-void PhysicsComponent::VUpdate()
+/*void PhysicsComponent::VUpdate()
 {
 
     ///TODO: Set the transform only before rendering and just update variables here.
     ///TODO: Probably check if TransformComponent is a valid pointer, but kinda don't want to have an if condition every frame.
 
-    m_pTranformComponent->GetTransform() = glm::translate(m_pTranformComponent->GetTransform(),
-                                                          glm::vec3(m_horizontalAcceleration, m_verticalAcceleration, 0.0f));
+    m_pTransformComponent->GetTransform() = glm::translate(m_pTransformComponent->GetTransform(),
+                                                           glm::vec3(m_horizontalAcceleration, m_verticalAcceleration,
+                                                                    0.0f));
 
-    //m_pTranformComponent->SetXPosition(m_pTranformComponent->GetXPosition() + m_horizontalAcceleration);
-    //m_pTranformComponent->SetYPosition(m_pTranformComponent->GetYPosition() + m_verticalAcceleration);
+    //m_pTransformComponent->SetXPosition(m_pTransformComponent->GetXPosition() + m_horizontalAcceleration);
+    //m_pTransformComponent->SetYPosition(m_pTransformComponent->GetYPosition() + m_verticalAcceleration);
+}*/
+
+void PhysicsComponent::VUpdate()
+{
+    if(m_verticalAcceleration != 0.0f || m_horizontalAcceleration != 0.0f)
+    {
+        ///TODO: Why the hell should i pass an ID, and then look for the actor inside the physics system when i can just pass an ActorPtr.
+        ///I could have a map of <Actor*, Rectangle*> instead of <unsigned int, Rectangle*> difference between unsigned int and Actor* in terms
+        ///of bytes should be minimal, so why waste CPU time?
+        m_pGamePhysics->VApplyForce(m_verticalAcceleration, m_horizontalAcceleration, m_pOwner->GetID());
+    }
+
 }
 
 void PhysicsComponent::ApplyVerticalAcceleration(float acceleration)

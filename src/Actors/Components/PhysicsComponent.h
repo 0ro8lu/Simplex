@@ -24,11 +24,12 @@ public:
 
 private:
 
-    TransformComponent* m_pTranformComponent;
+    TransformComponent* m_pTransformComponent;
     IGamePhysics*       m_pGamePhysics;
 
     float m_horizontalAcceleration;
     float m_verticalAcceleration;
+    const char* m_pShape;
 };
 
 #endif //ZOMBIEGAME_PHYSICSCOMPONENT_H

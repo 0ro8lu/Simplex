@@ -32,6 +32,7 @@ public:
     unsigned int GetNewActorID() { return ++m_LastActorID; }
 
     const BaseGameState GetState() const { return m_GameState; }
+    virtual IGamePhysics*& VGetGamePhysics() { return m_pGamePhysics; }
 
     virtual void VAddView(IGameView* pView, unsigned int actorID = 0);
 

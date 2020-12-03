@@ -11,3 +11,11 @@ DONE THINGS:
 - Game View.
 - Implement IGameLogic.
 - Actor/Component System.
+
+
+
+Cose da fare una volta ripreso:
+    capire cosa fanno:
+        -m_dynamicsWorld->addRigidBoy();
+        -m_actorIdToRigidBody[actorID] = body;
+        -m_rigidBodyToActorId[body] = actorID;

@@ -47,6 +47,12 @@ void IApplication::close()
 
 void IApplication::messageProcess(const AppMsg &appMsg)
 {
+
+    /*if(appMsg.getType() == MOUSEMOVE)
+    {
+        std::cout << "X: " << appMsg.xPos << " Y: " << abs(600 - appMsg.yPos) << "\n";
+    }*/
+
     if (appMsg.getType() == KEYDOWN)
     {
         //std::cout << "Key " << appMsg.key << " pressed\n";

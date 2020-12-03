@@ -17,7 +17,7 @@ bool TestController::VOnKeyDown(short key)
     if (key == GLFW_KEY_W || key == GLFW_KEY_S)
     {
         unsigned int actorID = m_Object->VGet()->ActorID();
-        std::unique_ptr<StartThrustEvent> pEvent = std::make_unique<StartThrustEvent>(actorID, (key == GLFW_KEY_W ? 0.03f : (-0.03f)));
+        std::unique_ptr<StartThrustEvent> pEvent = std::make_unique<StartThrustEvent>(actorID, (key == GLFW_KEY_W ? 0.03f : (-0.03)));
         EventManager::Get()->triggerEvent(pEvent.get());
     }
 

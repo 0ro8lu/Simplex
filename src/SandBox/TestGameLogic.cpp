@@ -7,7 +7,7 @@ TestGameLogic::TestGameLogic()
 {
     m_ThrustCount = m_SteerCount = 0;
 
-    //m_pGamePhysics = CreateDefaultGamePhysics();
+    m_pGamePhysics = CreateDefaultGamePhysics();
 
     RegisterAllDelegates();
 }

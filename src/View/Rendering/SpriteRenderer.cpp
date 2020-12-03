@@ -1,6 +1,5 @@
 #include "SpriteRenderer.h"
-
-#include "Utilities/PrintMatrix.h"
+#include "Utilities/PrintUtils.h"
 
 SpriteRenderer::SpriteRenderer()
 {
@@ -106,6 +105,9 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, const glm::vec2 &posit
 
 void SpriteRenderer::DrawSprite(const Texture2D& texture, const glm::mat4& model)
 {
+
+    //PrintUtils::printMat(model);
+
     m_pShader->SetMatrix4("model", model);
 
     m_pShader->SetMatrix4("view", m_View);

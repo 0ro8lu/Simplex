@@ -3,16 +3,6 @@
 #include <gtc/matrix_transform.hpp>
 #include "Scene.h"
 
-void printMat2(glm::mat4& model)
-{
-    for(int i = 0; i <= 3; i++)
-    {
-        std::cout << "X: " << model[i][0] << " Y: " << model[i][1] << " Z: " << model[i][2] << "\n";
-    }
-
-    std::cout << "\n\n\n\n\n\n";
-}
-
 CameraNode::CameraNode(glm::mat4 &mat, float width, float height, float zNear, float zFar)
     : SceneNode(0, nullptr, RenderPass_0, mat),
       m_Projection(mat), m_Width(width), m_Height(height), m_ZFar(zNear), m_ZNear(zFar)
