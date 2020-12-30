@@ -1,3 +1,4 @@
+/*
 #ifndef ZOMBIEGAME_DEFAULTPHYSICS_H
 #define ZOMBIEGAME_DEFAULTPHYSICS_H
 
@@ -70,3 +71,4 @@ extern IGamePhysics* CreateDefaultGamePhysics();
 extern IGamePhysics* CreateNullPhysics();
 
 #endif //ZOMBIEGAME_DEFAULTPHYSICS_H
+*/

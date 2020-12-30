@@ -97,7 +97,7 @@ void PhysicsComponent::VUpdate()
         ///TODO: Why the hell should i pass an ID, and then look for the actor inside the physics system when i can just pass an ActorPtr.
         ///I could have a map of <Actor*, Rectangle*> instead of <unsigned int, Rectangle*> difference between unsigned int and Actor* in terms
         ///of bytes should be minimal, so why waste CPU time?
-        m_pGamePhysics->VApplyForce(m_verticalAcceleration, m_horizontalAcceleration, m_pOwner->GetID());
+        //m_pGamePhysics->VApplyForce(m_verticalAcceleration, m_horizontalAcceleration, m_pOwner->GetID());
     }
 
 }

@@ -9,7 +9,7 @@
 
     <SpriteRenderComponent>
         <Texture name="container.jpg"/>
-        <Dimentions width="200" height="200"/>
+        <Dimentions width="50" height="50"/>
     </SpriteRenderComponent>
 
     <PhysicsComponent>

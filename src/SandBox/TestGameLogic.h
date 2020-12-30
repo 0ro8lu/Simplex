@@ -2,7 +2,7 @@
 #define ZOMBIEGAME_TESTGAMELOGIC_H
 
 #include "Model/BaseGameLogic.h"
-#include "Physics/DefaultPhysics.h"
+#include "Physics/Box2DPhysics.h"
 
 class TestGameLogic : public BaseGameLogic
 {

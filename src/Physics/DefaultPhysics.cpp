@@ -1,3 +1,4 @@
+/*
 #include "DefaultPhysics.h"
 
 #include "Utilities/PrintUtils.h"
@@ -59,7 +60,8 @@ void DefaultPhysics::VOnUpdate()
 {
     ///TODO: Clear out these comments.
 
-    /*for(auto it : m_actorIDToMatrix)
+    */
+/*for(auto it : m_actorIDToMatrix)
     {
         ///TODO: Add Pair to m_actorIDToMatrix so that we don't have to allocate
         ///A tmp Rect every single time.
@@ -71,7 +73,8 @@ void DefaultPhysics::VOnUpdate()
 
         // Chiamare DynamicRectVsRect() con i param. giusti.
         // Aggiungere il risultato a un buffer z.
-    }*/
+    }*//*
+
 
     // Fare un sort su Z
     // Risolvere la collisione.
@@ -82,7 +85,8 @@ void DefaultPhysics::VOnUpdate()
 
 
 
-    /*m_RayDirection = m_MousePos - m_RayPoint;
+    */
+/*m_RayDirection = m_MousePos - m_RayPoint;
     //std::cout << "DefaultPhysics::VOnUpdate m_RayDirection (X: " << m_RayDirection.x << ", Y: " << m_RayDirection.y << " )" << "\n";
 
     glm::vec2 cp, cn;
@@ -93,7 +97,8 @@ void DefaultPhysics::VOnUpdate()
         glm::vec2 normal = cp + cn;
         //std::cout << "DefaultPhysics::VOnUpdate: Collision occurred at (X: " << cp.x << ", Y: " << cp.y << " )\n";
         //std::cout << "DefaultPhysics::VOnUpdate: Collision Normal (X: " << normal.x << " ,Y " << normal.y << " )\n";
-    }*/
+    }*//*
+
 }
 
 void DefaultPhysics::VApplyForce(float verticalAcceleration, float horizontalAcceleration, unsigned int actorID)
@@ -242,3 +247,4 @@ bool DefaultPhysics::DynamicRectVsRect(const Rect* r_dynamic, const float fTimeS
     else
         return false;
 }
+*/

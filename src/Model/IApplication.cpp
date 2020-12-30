@@ -52,7 +52,6 @@ void IApplication::messageProcess(const AppMsg &appMsg)
     if(appMsg.getType() == MOUSEMOVE)
     {
         //std::cout << "X: " << appMsg.xPos << " Y: " << abs(600 - appMsg.yPos) << "\n";
-        DefaultPhysics::setMouse({appMsg.xPos, appMsg.yPos});
     }
 
     if (appMsg.getType() == KEYDOWN)

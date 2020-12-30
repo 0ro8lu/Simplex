@@ -18,6 +18,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Libs
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Libs/GLFW/includes)
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Libs/TinyXML2/includes)
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Libs/glm)
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Libs/Box2D/includes)
 
 # inlcude dirs for game code.
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/src/View)
@@ -36,3 +37,4 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC -lXi)
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC -ldl)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Libs/TinyXML2/bin/Linux/libtinyxml2.so)
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Libs/Box2D/bin/Linux/Debug/libbox2d.a)

@@ -7,7 +7,7 @@ TestGameLogic::TestGameLogic()
 {
     m_ThrustCount = m_SteerCount = 0;
 
-    m_pGamePhysics = CreateDefaultGamePhysics();
+    m_pGamePhysics = CreateGamePhysics();
 
     RegisterAllDelegates();
 }
@@ -25,7 +25,7 @@ void TestGameLogic::StartThrustDelegate(const EventPointer& pEvent)
 
     if(pActor)
     {
-        auto pPhysicsComponent = MakeStrongPtr(pActor->GetComponent<PhysicsComponent>(PhysicsComponent::GetComponentName()));
+        std::shared_ptr<PhysicsComponent> pPhysicsComponent = MakeStrongPtr(pActor->GetComponent<PhysicsComponent>(PhysicsComponent::GetComponentName()));
         if(pPhysicsComponent)
         {
             pPhysicsComponent->ApplyVerticalAcceleration(pCastEvent->GetAcceleration());
@@ -120,16 +120,15 @@ void BaseGameLogic::testFunction()
     auto aiv = new AIView;
 
     std::shared_ptr<Actor> m_pActor1 = VCreateActor("../Assets/Actors/TestActor.xml");
-    std::shared_ptr<Actor> m_pActor2 = VCreateActor("../Assets/Actors/TestActor.xml");
+    //std::shared_ptr<Actor> m_pActor2 = VCreateActor("../Assets/Actors/TestActor.xml");
 
     for(auto& gameView : m_GameViews)
     {
         if(gameView->VGetType() == GV_Human)
         {
             auto pHumanView = static_cast<TestGameView*>(gameView);
-            pHumanView->VSetControlledActor(m_pActor1->GetID());
+            //pHumanView->VSetControlledActor(m_pActor1->GetID());
         }
     }
-
-    VAddView(aiv, m_pActor2->GetID());
+    //VAddView(aiv, m_pActor2->GetID());
 }
