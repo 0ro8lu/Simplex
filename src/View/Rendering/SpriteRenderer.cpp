@@ -54,6 +54,7 @@ void SpriteRenderer::initRenderData()
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) nullptr);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+
 }
 
 void SpriteRenderer::SetProjectionMatrix(const glm::mat4& projectionMatrix)
@@ -105,9 +106,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, const glm::vec2 &posit
 
 void SpriteRenderer::DrawSprite(const Texture2D& texture, const glm::mat4& model)
 {
-
-    //PrintUtils::printMat(model);
-
     m_pShader->SetMatrix4("model", model);
 
     m_pShader->SetMatrix4("view", m_View);

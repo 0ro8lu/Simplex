@@ -22,8 +22,6 @@ private:
 
     short m_ThrustCount;
     short m_SteerCount;
-
-    //std::shared_ptr<Actor> m_pActor;
 };
 
 #endif //ZOMBIEGAME_TESTGAMELOGIC_H

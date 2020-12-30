@@ -1,5 +1,3 @@
-- Implement GLM.
-- Implement Camera.
 - IJoystickHandler.
 - IGamepadHandler.
 
@@ -7,15 +5,16 @@ MAYBE LATER:
 - Try Delay Process.
 
 DONE THINGS:
+- Implement GLM.
+- Implement Camera.
 - Screen Elements.
 - Game View.
 - Implement IGameLogic.
 - Actor/Component System.
 
-
-
-Cose da fare una volta ripreso:
-    capire cosa fanno:
-        -m_dynamicsWorld->addRigidBoy();
-        -m_actorIdToRigidBody[actorID] = body;
-        -m_rigidBodyToActorId[body] = actorID;
+Aggiornare motore fisico in modo che lavori con la struttura dati Rect invece che con le matrici.
+in questo modo non avremo ridondanza sui dati e sarà più immediato lavorare con i rettangoli per
+il calcolo e la risoluzione della collisione.
+Rimpiazzare la mappa in DefaultPhysics con 2 mappe distinte: una per i corpi statici e una per i corpi dinamici.
+Questi ultimi verranno confrontati con tutti gli altri corpi ad ogni update.
+Rivedere PhysicsComponent per aggiungere questa feature.

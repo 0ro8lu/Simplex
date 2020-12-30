@@ -1,4 +1,5 @@
 #include "IApplication.h"
+#include "Physics/DefaultPhysics.h"
 
 IApplication* g_pApp = nullptr;
 
@@ -48,10 +49,11 @@ void IApplication::close()
 void IApplication::messageProcess(const AppMsg &appMsg)
 {
 
-    /*if(appMsg.getType() == MOUSEMOVE)
+    if(appMsg.getType() == MOUSEMOVE)
     {
-        std::cout << "X: " << appMsg.xPos << " Y: " << abs(600 - appMsg.yPos) << "\n";
-    }*/
+        //std::cout << "X: " << appMsg.xPos << " Y: " << abs(600 - appMsg.yPos) << "\n";
+        DefaultPhysics::setMouse({appMsg.xPos, appMsg.yPos});
+    }
 
     if (appMsg.getType() == KEYDOWN)
     {
