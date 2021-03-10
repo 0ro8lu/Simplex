@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "stb_image.h"
+#include "Shader.h"
 
 class Texture2D
 {
@@ -16,6 +17,9 @@ public:
 
     void LoadFromFile(const char* file, bool alpha);
     void Bind() const;
+
+private:
+    void Generate(int width, int height, unsigned char* data);
 
     unsigned int ID;
 
@@ -29,9 +33,6 @@ public:
     unsigned int Wrap_T;
     unsigned int Filter_Min;
     unsigned int Filter_Max;
-
-private:
-    void Generate(int width, int height, unsigned char* data);
 };
 
 #endif //ZOMBIEGAME_TEXTURE2D_H

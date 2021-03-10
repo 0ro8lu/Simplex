@@ -35,6 +35,8 @@ class SpriteRenderComponent : public RenderComponent
 {
 public:
     static const char* GetComponentName() { return "SpriteRenderComponent"; }
+    const char* VGetComponentName() const override { return GetComponentName(); }
+    const glm::vec2& GetSize() const { return m_Size; }
 
 protected:
     void VPostInit() override;

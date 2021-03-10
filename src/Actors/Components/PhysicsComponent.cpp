@@ -18,7 +18,7 @@ PhysicsComponent::~PhysicsComponent()
 
 }
 
-bool PhysicsComponent::VInit(tinyxml2::XMLElement* pData)
+bool PhysicsComponent::VInit(tinyxml2::XMLElement *pData)
 {
     m_pGamePhysics = g_pApp->GetGameLogic()->VGetGamePhysics();
 
@@ -28,15 +28,25 @@ bool PhysicsComponent::VInit(tinyxml2::XMLElement* pData)
         return false;
     }
 
-    tinyxml2::XMLElement* pAttributes = pData->FirstChildElement("Shape");
+    tinyxml2::XMLElement *pAttributes = pData->FirstChildElement("Shape");
 
-    if(!pAttributes)
+    if (!pAttributes)
     {
         std::cout << "ERROR!: Could not find attribute Shape in PhysicsComponent\n";
         return false;
     }
 
     m_pShape = pAttributes->GetText();
+
+    pAttributes = pData->FirstChildElement("Type");
+
+    if (!pAttributes)
+    {
+        std::cout << "ERROR!: Could not find attribute Type in PhysicsComponent\n";
+        return false;
+    }
+
+    m_pType = pAttributes->GetText();
 
     return true;
 }
@@ -50,16 +60,32 @@ void PhysicsComponent::VPostInit()
         return;
     }
 
+    bool isStatic;
+    if (strcmp(m_pType, "Static") == 0)
+    {
+        isStatic = true;
+    } else if (strcmp(m_pType, "Dynamic") == 0)
+    {
+        isStatic = false;
+    } else
+    {
+        std::cout << "ERROR!: Unsupported physics tyoe " << m_pType << " for PhysicsComponent in actor "
+                  << m_pOwner->GetID() << "\n";
+        return;
+    }
+
+
     if (strcmp(m_pShape, "Box") == 0)
     {
-        m_pGamePhysics->VAddBox(glm::vec2(1.0f, 1.0f), m_pOwner);
+        m_pGamePhysics->VAddBox(m_pOwner, isStatic);
 
     } else if (strcmp(m_pShape, "Circle") == 0)
     {
         ///TODO: Let physics system add a circle.
     } else
     {
-        std::cout << "ERROR!: Unsupported shape type " << m_pShape << " for PhysicsComponent in actor " << m_pOwner->GetID() << "\n";
+        std::cout << "ERROR!: Unsupported shape type " << m_pShape << " for PhysicsComponent in actor "
+                  << m_pOwner->GetID() << "\n";
     }
 
     m_pTransformComponent = m_pOwner->GetComponentRaw<TransformComponent>(TransformComponent::GetComponentName());
@@ -71,7 +97,7 @@ void PhysicsComponent::VPostInit()
     }
 }
 
-tinyxml2::XMLElement* PhysicsComponent::VGenerateXml()
+tinyxml2::XMLElement *PhysicsComponent::VGenerateXml()
 {
     return nullptr;
 }
@@ -92,12 +118,12 @@ tinyxml2::XMLElement* PhysicsComponent::VGenerateXml()
 
 void PhysicsComponent::VUpdate()
 {
-    if(m_verticalAcceleration != 0.0f || m_horizontalAcceleration != 0.0f)
+    if (m_verticalAcceleration != 0.0f || m_horizontalAcceleration != 0.0f)
     {
         ///TODO: Why the hell should i pass an ID, and then look for the actor inside the physics system when i can just pass an ActorPtr.
         ///I could have a map of <Actor*, Rectangle*> instead of <unsigned int, Rectangle*> difference between unsigned int and Actor* in terms
         ///of bytes should be minimal, so why waste CPU time?
-        //m_pGamePhysics->VApplyForce(m_verticalAcceleration, m_horizontalAcceleration, m_pOwner->GetID());
+        m_pGamePhysics->VApplyForce({m_horizontalAcceleration, m_verticalAcceleration}, 2000, m_pOwner->GetID());
     }
 
 }

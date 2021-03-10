@@ -1,0 +1,17 @@
+<Actor type="Platform" resource="Actors\RigidPlatform.xml">
+
+    <TransformComponent>
+        <Position x="400" y="60"/>
+    </TransformComponent>
+
+    <SpriteRenderComponent>
+        <Texture name="container.jpg"/>
+        <Dimentions width="500" height="10"/>
+    </SpriteRenderComponent>
+
+    <PhysicsComponent>
+        <Shape>Box</Shape>
+        <Type>Static</Type>
+    </PhysicsComponent>
+
+</Actor>

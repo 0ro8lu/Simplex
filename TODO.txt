@@ -12,6 +12,11 @@ DONE THINGS:
 - Implement IGameLogic.
 - Actor/Component System.
 
+Be able to also set scale for a given actor.
+
+Riuscire ad avere un modello fisico semplice, senza troppi fronzoli, come quello che useremo per il gioco Zombie: velocità massima immediata, arresto al rilascio
+del tasto (ricercare come fare)
+
 Aggiornare motore fisico in modo che lavori con la struttura dati Rect invece che con le matrici.
 in questo modo non avremo ridondanza sui dati e sarà più immediato lavorare con i rettangoli per
 il calcolo e la risoluzione della collisione.

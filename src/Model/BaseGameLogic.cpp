@@ -46,9 +46,9 @@ WeakActorPtr BaseGameLogic::VGetActor(unsigned int id)
     return WeakActorPtr();
 }
 
-StrongActorPtr BaseGameLogic::VCreateActor(const char *actorResource)
+StrongActorPtr BaseGameLogic::VCreateActor(const char *actorResource, const glm::vec2* pInitialPosition, float angle)
 {
-    StrongActorPtr pActor = m_pActorFactory->CreateActor(actorResource);
+    StrongActorPtr pActor = m_pActorFactory->CreateActor(actorResource, pInitialPosition, angle);
     m_Actors.insert(std::pair(pActor->GetID(), pActor));
     return pActor;
 }
@@ -122,4 +122,18 @@ void BaseGameLogic::VAddView(IGameView *pView, unsigned int actorID)
     m_GameViews.push_back(pView);
     pView->VOnAttach(viewID, actorID);
     //view.VOnRestore(); ///TODO: Implement this.
+}
+
+void BaseGameLogic::VMoveActor(unsigned int id, const glm::vec2& position, const float angle)
+{
+    StrongActorPtr pActor = MakeStrongPtr(VGetActor(id));
+
+    if(pActor)
+    {
+        std::shared_ptr<TransformComponent> pTransformComponent = MakeStrongPtr(pActor->GetComponent<TransformComponent>(TransformComponent::GetComponentName()));
+
+        if(pTransformComponent)
+        {
+        }
+    }
 }

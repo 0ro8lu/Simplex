@@ -1,4 +1,5 @@
 #include "SpriteRenderer.h"
+
 #include "Utilities/PrintUtils.h"
 
 SpriteRenderer::SpriteRenderer()
@@ -8,7 +9,7 @@ SpriteRenderer::SpriteRenderer()
     m_pShader = new Shader;
     m_pShader->Compile();
 
-    initRenderData();
+    initRenderData2();
 }
 
 SpriteRenderer::~SpriteRenderer()
@@ -54,7 +55,50 @@ void SpriteRenderer::initRenderData()
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) nullptr);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+}
 
+void SpriteRenderer::initRenderData2()
+{
+    unsigned int VBO;
+
+    float vertices[] = {
+            // positions         // texture coords
+            0.5f,  0.5f,  1.0f, 1.0f, // top right
+            0.5f, -0.5f,  1.0f, 0.0f, // bottom right
+            -0.5f, -0.5f, 0.0f, 0.0f, // bottom left
+            -0.5f,  0.5f, 0.0f, 1.0f  // top left
+    };
+
+    unsigned int indices[] = {
+            0, 1, 3, // first triangle
+            1, 2, 3  // second triangle
+    };
+
+    glGenVertexArrays(1, &this->m_VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &this->m_EBO);
+
+    glBindVertexArray(this->m_VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->m_EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) nullptr);
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) (2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    /*glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) nullptr);
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*) (2 * sizeof(float)));
+    glEnableVertexAttribArray(1);*/
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void SpriteRenderer::SetProjectionMatrix(const glm::mat4& projectionMatrix)
@@ -106,9 +150,9 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, const glm::vec2 &posit
 
 void SpriteRenderer::DrawSprite(const Texture2D& texture, const glm::mat4& model)
 {
-    m_pShader->SetMatrix4("model", model);
+    Shader::SetMatrix4("model", model);
 
-    m_pShader->SetMatrix4("view", m_View);
+    Shader::SetMatrix4("view", m_View);
 
     glActiveTexture(GL_TEXTURE0);
     texture.Bind();
@@ -116,7 +160,8 @@ void SpriteRenderer::DrawSprite(const Texture2D& texture, const glm::mat4& model
     m_pShader->Use();
 
     glBindVertexArray(m_VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    //glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 }
 

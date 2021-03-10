@@ -22,8 +22,10 @@ public:
 private:
 
     void initRenderData();
+    void initRenderData2();
 
     unsigned int m_VAO;
+    unsigned int m_EBO;
 
     Shader* m_pShader;
     glm::mat4 m_View;

@@ -12,6 +12,7 @@ CameraNode::CameraNode(glm::mat4 &mat, float width, float height, float zNear, f
     m_CameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
     m_CameraUp    = glm::vec3(0.0f, 1.0f, 0.0f);
 
+    ///TODO: Add / 2 here as well.
     m_Projection = glm::ortho(0.0f, m_Width, 0.0f, m_Height, m_ZNear, m_ZFar);
 }
 

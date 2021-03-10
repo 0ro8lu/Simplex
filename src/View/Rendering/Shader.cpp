@@ -1,11 +1,23 @@
 #include "Shader.h"
 
+unsigned int Shader::ID = 0;
 
 Shader::Shader()
 {
-    ID = 0;
-
     m_vertexSource = "#version 330 core\n"
+                     "layout (location = 0) in vec2 aPos;\n"
+                     "layout (location = 1) in vec2 aTexCoord;\n"
+                     "out vec2 TexCoords;\n"
+                     "uniform mat4 projection;\n"
+                     "uniform mat4 view;\n"
+                     "uniform mat4 model;\n"
+                     "void main()\n"
+                     "{\n"
+                     "   TexCoords = vec2(aTexCoord.x, aTexCoord.y);\n"
+                     "   gl_Position = projection * view * model * vec4(aPos, 1.0, 1.0);\n"
+                     "}\0";
+
+    /*m_vertexSource = "#version 330 core\n"
                      "layout (location = 0) in vec4 vertex;\n"
                      "out vec2 TexCoords;\n"
                      "uniform mat4 projection;\n"
@@ -15,7 +27,7 @@ Shader::Shader()
                      "{\n"
                      "   TexCoords = vertex.zw;\n"
                      "   gl_Position = projection * view * model * vec4(vertex.xyz, 1.0);\n"
-                     "}\0";
+                     "}\0";*/
 
     m_fragmentSource = "#version 330 core\n"
                        "out vec4 FragColor;\n"
@@ -23,6 +35,7 @@ Shader::Shader()
                        "uniform sampler2D ourTexture;\n"
                        "void main()\n"
                        "{\n"
+                       "//FragColor = vec4(0, 0, 0, 255);\n"
                        "FragColor = texture(ourTexture, TexCoords);\n"
                        "}\0";
 }
@@ -31,7 +44,7 @@ Shader::~Shader() = default;
 
 Shader &Shader::Use()
 {
-    glUseProgram(this->ID);
+    glUseProgram(Shader::ID);
     return *this;
 }
 
@@ -49,12 +62,12 @@ void Shader::Compile()
     glCompileShader(sFragment);
     checkCompileErrors(sFragment, "FRAGMENT");
 
-    this->ID = glCreateProgram();
-    glAttachShader(this->ID, sVertex);
-    glAttachShader(this->ID, sFragment);
+    Shader::ID = glCreateProgram();
+    glAttachShader(Shader::ID, sVertex);
+    glAttachShader(Shader::ID, sFragment);
 
-    glLinkProgram(this->ID);
-    checkCompileErrors(this->ID, "PROGRAM");
+    glLinkProgram(Shader::ID);
+    checkCompileErrors(Shader::ID, "PROGRAM");
 
     glDeleteShader(sVertex);
     glDeleteShader(sFragment);
@@ -88,23 +101,30 @@ void Shader::checkCompileErrors(unsigned int object, const std::string& type)
     }
 }
 
-void Shader::SetVector3f(const char *name, float x, float y, float z, bool useShader)
+void Shader::SetVector3f(const std::string &name, float x, float y, float z, bool useShader)
 {
     if(useShader)
-        this->Use();
-    glUniform3f(glad_glGetUniformLocation(this->ID, name), x, y, z);
+        glUseProgram(Shader::ID);
+    glUniform3f(glad_glGetUniformLocation(Shader::ID, name.c_str()), x, y, z);
 }
 
-void Shader::SetVector3f(const char *name, const glm::vec3 &value, bool useShader)
+void Shader::SetVector3f(const std::string &name, const glm::vec3 &value, bool useShader)
 {
     if(useShader)
-        this->Use();
-    glUniform3f(glad_glGetUniformLocation(this->ID, name), value.x, value.y, value.z);
+        glUseProgram(Shader::ID);
+    glUniform3f(glad_glGetUniformLocation(Shader::ID, name.c_str()), value.x, value.y, value.z);
 }
 
-void Shader::SetMatrix4(const char *name, const glm::mat4 &matrix, bool useShader)
+void Shader::SetMatrix4(const std::string &name, const glm::mat4 &matrix, bool useShader)
 {
     if(useShader)
-        this->Use();
-    glUniformMatrix4fv(glad_glGetUniformLocation(this->ID, name), 1, false, glm::value_ptr(matrix));
+        glUseProgram(Shader::ID);
+    glUniformMatrix4fv(glad_glGetUniformLocation(Shader::ID, name.c_str()), 1, false, glm::value_ptr(matrix));
+}
+
+void Shader::SetInt(const std::string &name, int value, bool useShader)
+{
+    if(useShader)
+        glUseProgram(Shader::ID);
+    glUniform1i(glGetUniformLocation(Shader::ID, name.c_str()), value);
 }

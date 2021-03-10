@@ -2,6 +2,7 @@
 #define ZOMBIEGAME_SCENENODEPROPERTIES_H
 
 #include <glm.hpp>
+#include <string>
 
 enum RenderPass
 {

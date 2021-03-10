@@ -1,5 +1,4 @@
 #include "IApplication.h"
-#include "Physics/DefaultPhysics.h"
 
 IApplication* g_pApp = nullptr;
 

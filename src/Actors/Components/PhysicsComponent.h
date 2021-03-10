@@ -29,7 +29,9 @@ private:
 
     float m_horizontalAcceleration;
     float m_verticalAcceleration;
+
     const char* m_pShape;
+    const char* m_pType;
 };
 
 #endif //ZOMBIEGAME_PHYSICSCOMPONENT_H

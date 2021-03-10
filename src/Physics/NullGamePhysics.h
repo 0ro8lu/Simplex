@@ -10,12 +10,16 @@ public:
     void VSyncVisibleScene() override { }
     void VOnUpdate() override { }
 
-    void VAddBox(const glm::vec2& dimensions, StrongActorPtr pActor) override { }
-    void VAddCircle(float radius, StrongActorPtr pActor) override { }
+    void VAddBox(StrongActorPtr pActor, bool isRigid) override { }
+    void VAddCircle(float radius, StrongActorPtr pActor, bool isRigid) override { }
     void VRemoveActor(unsigned int actorID) override { }
 
     void VApplyForce(const glm::vec2& dir, float newtons, unsigned int actorID) override { }
     void VApplyTorque(const glm::vec2& dir, float newtons, unsigned int actorID) override { }
+
+    void VSetPosition(unsigned int actorID, const glm::vec2& vec) override { }
+    void VSetTransform(unsigned int actorID, const glm::mat4& mat) override { }
+    void VSetRotation(unsigned int actorID, float angle) override { }
 
 };
 

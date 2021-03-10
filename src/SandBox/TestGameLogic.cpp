@@ -1,13 +1,13 @@
 #include "TestGameLogic.h"
 
 #include "TestGameView.h"
-#include "Model/IApplication.h"
+#include "Utilities/PrintUtils.h"
 
 TestGameLogic::TestGameLogic()
 {
     m_ThrustCount = m_SteerCount = 0;
 
-    m_pGamePhysics = CreateGamePhysics();
+    m_pGamePhysics = CreateAdvancedPhysics();
 
     RegisterAllDelegates();
 }
@@ -120,15 +120,22 @@ void BaseGameLogic::testFunction()
     auto aiv = new AIView;
 
     std::shared_ptr<Actor> m_pActor1 = VCreateActor("../Assets/Actors/TestActor.xml");
-    //std::shared_ptr<Actor> m_pActor2 = VCreateActor("../Assets/Actors/TestActor.xml");
+
+    glm::vec2 pos = {100, 10};
+    std::shared_ptr<Actor> m_pActor2 = VCreateActor("../Assets/Actors/RigidPlatform.xml", &pos);
+
+    //pos.x = 200; pos.y = 60;
+    //std::shared_ptr<Actor> m_pActor3 = VCreateActor("../Assets/Actors/RigidPlatform.xml", &pos, 1.0f);
 
     for(auto& gameView : m_GameViews)
     {
-        if(gameView->VGetType() == GV_Human)
+        if (gameView->VGetType() == GV_Human)
         {
             auto pHumanView = static_cast<TestGameView*>(gameView);
-            //pHumanView->VSetControlledActor(m_pActor1->GetID());
+            pHumanView->VSetControlledActor(m_pActor1->GetID());
         }
     }
-    //VAddView(aiv, m_pActor2->GetID());
+
+    VAddView(aiv, m_pActor2->GetID());
+    //VAddView(aiv, m_pActor3->GetID());
 }

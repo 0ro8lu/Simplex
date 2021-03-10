@@ -15,7 +15,7 @@ public:
     ActorFactory();
     virtual ~ActorFactory();
 
-    std::shared_ptr<Actor> CreateActor(const char* actorResource);
+    std::shared_ptr<Actor> CreateActor(const char* actorResource, const glm::vec2* pInitialPosition, float angle = 0);
     virtual std::shared_ptr<ActorComponent> CreateComponent(tinyxml2::XMLElement* pData);
 
 protected:

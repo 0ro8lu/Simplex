@@ -9,6 +9,7 @@ file(GLOB_RECURSE MY_SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp
 
 add_executable(${CMAKE_PROJECT_NAME} ${MY_SOURCES})
 
+
 #TODO: Add support for other platforms.
 
 # include dirs for libraries.
@@ -37,4 +38,4 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC -lXi)
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC -ldl)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Libs/TinyXML2/bin/Linux/libtinyxml2.so)
-target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Libs/Box2D/bin/Linux/Debug/libbox2d.a)
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/Libs/Box2D/bin/Linux/libbox2d.a)

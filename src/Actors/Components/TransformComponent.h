@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include "gtc/matrix_transform.hpp"
+#include "Utilities/PrintUtils.h"
 
 class TransformComponent : public ActorComponent
 {
@@ -15,8 +16,6 @@ public:
     static const char* GetComponentName() { return "TransformComponent"; }
 
     tinyxml2::XMLElement *VGenerateXml() override { return nullptr; }
-
-    ///TODO: Transform functions.
 
     glm::mat4& GetTransform() { return m_Transform; }
     void       SetTransform(glm::mat4 transform) { m_Transform = transform; }
@@ -30,7 +29,7 @@ public:
 
     void SetXPosition(float xPos)        { m_Position.x = xPos; }
     void SetYPosition(float yPos)        { m_Position.y = yPos; }
-    void SetPosition(glm::vec2 position) { m_Position = position; }
+    void SetPosition(glm::vec2 position) { m_Transform[3][0] = position[0]; m_Transform[3][1] = position[1]; }
 
 private:
     glm::vec2 m_Position;

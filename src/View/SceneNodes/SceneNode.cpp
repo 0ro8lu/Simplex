@@ -9,6 +9,8 @@ SceneNode::SceneNode(unsigned int ActorID, RenderComponent *renderComponent, Ren
 {
     m_pParent = nullptr;
 
+    std::cout << "Setting transform in SceneNode...\n";
+
     m_Props.m_ActorID = ActorID;
     m_Props.m_Name = (renderComponent) ? renderComponent->VGetComponentName() : "SceneNode";
     m_Props.m_pTransform = &transform;
@@ -97,13 +99,13 @@ bool SceneNode::VPostRender(Scene *pScene)
 
 void SceneNode::VRenderChildren(Scene *pScene)
 {
-    for(auto it = m_Children.begin(); it != m_Children.end(); ++it)
+    for(auto & it : m_Children)
     {
-        if((*it)->VPreRender(pScene))
+        if(it->VPreRender(pScene))
         {
-            (*it)->VRender(pScene);
-            (*it)->VRenderChildren(pScene);
-            (*it)->VPostRender(pScene);
+            it->VRender(pScene);
+            it->VRenderChildren(pScene);
+            it->VPostRender(pScene);
         }
     }
 }

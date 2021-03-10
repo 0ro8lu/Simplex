@@ -20,19 +20,26 @@ class BaseGameLogic : public IGameLogic
 public:
 
     BaseGameLogic();
+
     virtual ~BaseGameLogic();
 
     WeakActorPtr VGetActor(unsigned int id) override;
-    StrongActorPtr VCreateActor(const char* actorResource) override;
+    StrongActorPtr VCreateActor(const char* actorResource, const glm::vec2* pInitialPosition = nullptr, float angle = 0) override;
     void VDestroyActor(unsigned int id) override;
     void VOnUpdate() override;
     void VChangeState(BaseGameState newState) override;
+    void VMoveActor(unsigned int id, const glm::vec2& position, const float angle) override;
 
     bool Init();
-    unsigned int GetNewActorID() { return ++m_LastActorID; }
 
-    const BaseGameState GetState() const { return m_GameState; }
-    virtual IGamePhysics*& VGetGamePhysics() { return m_pGamePhysics; }
+    unsigned int GetNewActorID()
+    { return ++m_LastActorID; }
+
+    const BaseGameState GetState() const
+    { return m_GameState; }
+
+    virtual IGamePhysics*& VGetGamePhysics()
+    { return m_pGamePhysics; }
 
     virtual void VAddView(IGameView* pView, unsigned int actorID = 0);
 
@@ -43,11 +50,11 @@ protected:
     virtual ActorFactory* VCreateActorFactory();
 
     ProcessManager* m_pProcessManager;
-    IGamePhysics*   m_pGamePhysics;
+    IGamePhysics* m_pGamePhysics;
 
-    ActorFactory*   m_pActorFactory;
-    ActorMap        m_Actors;
-    unsigned int    m_LastActorID;
+    ActorFactory* m_pActorFactory;
+    ActorMap m_Actors;
+    unsigned int m_LastActorID;
 
     std::vector<IGameView*> m_GameViews;
 

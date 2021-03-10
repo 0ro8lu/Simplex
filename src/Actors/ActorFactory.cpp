@@ -13,7 +13,8 @@ ActorFactory::ActorFactory()
 ActorFactory::~ActorFactory()
 = default;
 
-std::shared_ptr<Actor> ActorFactory::CreateActor(const char *actorResource)
+std::shared_ptr<Actor>
+ActorFactory::CreateActor(const char* actorResource, const glm::vec2* pInitialPosition, const float angle)
 {
 
     tinyxml2::XMLDocument xmlDoc;
@@ -25,7 +26,7 @@ std::shared_ptr<Actor> ActorFactory::CreateActor(const char *actorResource)
         return std::shared_ptr<Actor>();
     }
 
-    tinyxml2::XMLElement* pRoot = dynamic_cast<tinyxml2::XMLElement *>(xmlDoc.FirstChild());
+    auto* pRoot = dynamic_cast<tinyxml2::XMLElement *>(xmlDoc.FirstChild());
 
     if(pRoot == nullptr)
     {
@@ -52,6 +53,18 @@ std::shared_ptr<Actor> ActorFactory::CreateActor(const char *actorResource)
         else
         {
             return std::shared_ptr<Actor>();
+        }
+    }
+
+    std::cout << "Setting Transform in ActorFactory...\n";
+
+    std::shared_ptr<TransformComponent> pTransformComponent = MakeStrongPtr(pActor->GetComponent<TransformComponent>(TransformComponent::GetComponentName()));
+    if(pTransformComponent)
+    {
+        pTransformComponent->GetTransform() = glm::rotate(pTransformComponent->GetTransform(), angle, glm::vec3(0.0f, 0.0f, 1.0f));
+        if(pInitialPosition)
+        {
+            pTransformComponent->SetPosition(*pInitialPosition);
         }
     }
 

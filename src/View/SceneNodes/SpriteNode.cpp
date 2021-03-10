@@ -6,7 +6,6 @@ SpriteNode::SpriteNode(unsigned int ActorID, RenderComponent *renderComponent, s
                        const glm::vec2 &size, glm::mat4 &transform)
         : SceneNode(ActorID, renderComponent, renderPass, transform)
 {
-
     m_pSpriteRenderer = g_pApp->m_pRenderer;
 
     m_pTexture = new Texture2D;
