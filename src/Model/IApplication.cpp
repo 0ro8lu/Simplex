@@ -92,9 +92,11 @@ void IApplication::update()
     double previous = Timer::getCurrentTime();
     double lag = 0.0;
 
+    int frames = 0;
+    double tmpTime = Timer::getCurrentTime();
+
     while (!m_ShouldClose)
     {
-
         double current = Timer::getCurrentTime();
         double elapsed = current - previous;
         previous = current;
@@ -104,10 +106,21 @@ void IApplication::update()
 
         while(lag >= MS_PER_UPDATE)
         {
+            frames++;
+            if(Timer::getCurrentTime() - tmpTime >= 1000)
+            {
+                std::cout << "Frames per second: " << frames << "\n";
+                frames = 0;
+                tmpTime = Timer::getCurrentTime();
+            }
+
             m_pGameLogic->VOnUpdate();
             lag -= MS_PER_UPDATE;
+            onRender();
         }
-        onRender();
+        std::chrono::microseconds duration((int)((MS_PER_UPDATE - lag) * 1000));
+        std::this_thread::sleep_for(duration);
+        //onRender();
     }
 }
 

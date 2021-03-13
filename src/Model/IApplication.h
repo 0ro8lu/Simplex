@@ -1,6 +1,8 @@
 #ifndef ZOMBIEGAME_IAPPLICATION_H
 #define ZOMBIEGAME_IAPPLICATION_H
 
+#include <thread>
+
 #include "Window.h"
 #include "EventManager.h"
 #include "AppCloseEvent.h"
